@@ -1,4 +1,4 @@
-NAME := fixed_point_number
+NAME := canonical_class
 
 # Source files and Objects
 SRC := main.cpp Fixed.cpp
