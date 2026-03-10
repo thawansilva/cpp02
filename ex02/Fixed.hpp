@@ -20,8 +20,8 @@ public:
 	Fixed();
 	Fixed(int const num_i);
 	Fixed(float const num_f);
-	Fixed(Fixed& src);
-	Fixed& operator=(Fixed& src);
+	Fixed(const Fixed& src);
+	Fixed& operator=(const Fixed& src);
 	~Fixed();
 
 	// Getters and Setters
@@ -33,20 +33,22 @@ public:
 	int				toInt(void) const;
 	static Fixed&	min(Fixed& num1, Fixed& num2);
 	static Fixed&	max(Fixed& num1, Fixed& num2);
-//	static Fixed&	min(Fixed& const num1, Fixed& const num2);
-//	static Fixed&	max(Fixed& const num1, Fixed& const num2);
-	bool			operator>(Fixed& src);
-	bool			operator<(Fixed& src);
-	bool			operator>=(Fixed& src);
-	bool			operator<=(Fixed& src);
-	bool			operator==(Fixed& src);
-	bool			operator!=(Fixed& src);
-	int				operator+(Fixed& src);
-	int				operator-(Fixed& src);
-	int				operator*(Fixed& src);
-	float			operator/(Fixed& src);
-	void			operator++(void);
-	void			operator--(void);
+	static const Fixed&	min(const Fixed& num1, const Fixed& num2);
+	static const Fixed&	max(const Fixed& num1, const Fixed& num2);
+	bool			operator>(const Fixed& src) const;
+	bool			operator<(const Fixed& src) const;
+	bool			operator>=(const Fixed& src) const;
+	bool			operator<=(const Fixed& src) const;
+	bool			operator==(const Fixed& src) const;
+	bool			operator!=(const Fixed& src) const;
+	int				operator+(const Fixed& src) const;
+	int				operator-(const Fixed& src) const;
+	float			operator*(const Fixed src) const;
+	float			operator/(const Fixed& src) const;
+	Fixed			operator++(int);
+	Fixed			operator--(int);
+	Fixed&			operator++();
+	Fixed&			operator--();
 
 private:
 	int					_rawBits;
