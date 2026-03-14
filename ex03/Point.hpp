@@ -11,15 +11,14 @@ public:
 	Point&	operator=(const Point& src);
 	~Point();
 
-	// Getters & Setters
-	Fixed	getX(void) const;
-	void	setX(Fixed& x);
-	Fixed	getY(void) const;
-	void	setY(Fixed& y);
+	// Getters
+	const Fixed	getX(void) const;
+	const Fixed	getY(void) const;
 
 private:
 	Fixed const	x;
 	Fixed const	y;
 };
 
-bool	bsp(Point const a, Point const b, Point const c, Point const point);
+bool			bsp(Point const a, Point const b, Point const c, Point const point);
+std::ostream&	operator<<(std::ostream &output, const Point &src);

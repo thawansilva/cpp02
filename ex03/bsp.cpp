@@ -1,24 +1,35 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   bsp.cpp                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: thaperei <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/03/13 18:24:17 by thaperei          #+#    #+#             */
+/*   Updated: 2026/03/14 15:16:03 by thaperei         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "Point.hpp"
-static int i = 0;
 
-static bool	isSameSide(const Point a, const Point b, const Point c,
-		const Point p)
+static Fixed	getArea(const Point& a, const Point& b, const Point& c)
 {
-	Fixed	cp1 = (b.getX() - a.getX()) * (p.getY() - a.getY())
-		- (b.getY() - a.getY()) * (p.getX() - a.getX());
-
-	Fixed	cp2 = (b.getX() - a.getX()) * (c.getY() - a.getY())
-		- (b.getY() - a.getY()) * (c.getX() - a.getX());
-
-	std::cout << "index " << i << std::endl;
-	std::cout << cp1 << " ";
-	std::cout << cp2 << std::endl;
-	i++;
-	return (Fixed((cp1 * cp2)) > Fixed(0));
+	Fixed area = ((a.getX() * (b.getY() - c.getY()))
+			+ (b.getX() * (c.getY() - a.getY()))
+			+ (c.getX() * (a.getY() - b.getY())));
+	if (area < Fixed(0))
+		area = area * Fixed(-1);
+	return (area);
 }
 
 bool	bsp(Point const a, Point const b, Point const c, Point const point)
 {
-	return (isSameSide(a, b, c, point) && isSameSide(b, c, a, point)
-			&& isSameSide(c, a, b, point));
+	Fixed areaABC = getArea(a, b, c);
+	Fixed areaABP = getArea(a, b, point);
+	Fixed areaBCP = getArea(b, c, point);
+	Fixed areaACP = getArea(a, c, point);
+
+	if (areaABP == Fixed(0) || areaBCP == Fixed(0) || areaACP == Fixed(0))
+		return (false);
+	return (areaABC == (areaABP + areaBCP + areaACP));
 }

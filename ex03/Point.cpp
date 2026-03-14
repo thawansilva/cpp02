@@ -14,12 +14,18 @@ Point&	Point::operator=(const Point& src)
 	return (*this);
 }
 
-Fixed	Point::getX(void) const
+const Fixed	Point::getX(void) const
 {
-	return (this->x);
+	return (x);
 }
 
-Fixed	Point::getY(void) const
+const Fixed	Point::getY(void) const
 {
-	return (this->y);
+	return (y);
+}
+
+std::ostream& operator<<(std::ostream &output, const Point &src)
+{
+	output << "(" << src.getX() << "," << src.getY() << ")";
+	return (output);
 }
