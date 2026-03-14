@@ -6,7 +6,7 @@
 /*   By: thaperei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/09 18:32:44 by thaperei          #+#    #+#             */
-/*   Updated: 2026/03/10 21:23:14 by thaperei         ###   ########.fr       */
+/*   Updated: 2026/03/14 15:10:27 by thaperei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,17 +38,17 @@ Fixed& Fixed::operator=(const Fixed& src)
 
 float	Fixed::toFloat(void) const
 {
-	return ((float)this->_rawBits / (float)(1 << _fractionalBits));
+	return (static_cast<float>(this->_rawBits) / (1 << _fractionalBits));
 }
 
 int	Fixed::toInt(void) const
 {
-	return this->_rawBits >> _fractionalBits;
+	return (this->_rawBits >> _fractionalBits);
 }
 
 int	Fixed::getRawBits(void) const
 {
-	return _rawBits;
+	return (_rawBits);
 }
 
 void	Fixed::setRawBits(int value)
@@ -56,54 +56,63 @@ void	Fixed::setRawBits(int value)
 	_rawBits = value;
 }
 
-bool	Fixed::operator>(const Fixed src) const
+bool	Fixed::operator>(const Fixed &src) const
 {
 	return (this->_rawBits > src._rawBits);
 }
 
-bool	Fixed::operator<(const Fixed src) const
+bool	Fixed::operator<(const Fixed &src) const
 {
 	return (this->_rawBits < src._rawBits);
 }
 
-bool	Fixed::operator>=(const Fixed src) const
+bool	Fixed::operator>=(const Fixed &src) const
 {
 	return (this->_rawBits >= src._rawBits);
 }
 
-bool	Fixed::operator<=(const Fixed src) const
+bool	Fixed::operator<=(const Fixed &src) const
 {
 	return (this->_rawBits <= src._rawBits);
 }
 
-bool	Fixed::operator==(const Fixed src) const
+bool	Fixed::operator==(const Fixed &src) const
 {
 	return (this->_rawBits == src._rawBits);
 }
 
-bool	Fixed::operator!=(const Fixed src) const
+bool	Fixed::operator!=(const Fixed &src) const
 {
 	return (this->_rawBits != src._rawBits);
 }
 
-Fixed	Fixed::operator+(const Fixed src) const
+Fixed	Fixed::operator+(const Fixed &src) const
 {
-	return Fixed(this->_rawBits + src._rawBits);
+	Fixed	res;
+	res.setRawBits(this->_rawBits + src._rawBits);
+	return (res);
 }
 
-Fixed	Fixed::operator-(const Fixed src) const
+Fixed	Fixed::operator-(const Fixed &src) const
 {
-	return Fixed(this->_rawBits - src._rawBits);
+	Fixed	res;
+	res.setRawBits(this->_rawBits - src._rawBits);
+	return (res);
 }
 
-Fixed	Fixed::operator*(const Fixed src) const
+Fixed	Fixed::operator*(const Fixed &src) const
 {
-	return Fixed(this->toFloat() * src.toFloat());
+	Fixed res;
+	res.setRawBits((static_cast<long long>(this->_rawBits)
+				* static_cast<long long>(src._rawBits)) >> _fractionalBits);
+	return (res);
 }
 
-Fixed	Fixed::operator/(const Fixed src) const
+Fixed	Fixed::operator/(const Fixed &src) const
 {
-	return Fixed(this->toFloat() / src.toFloat());
+	Fixed res;
+	res.setRawBits((static_cast<long long>(this->_rawBits) << _fractionalBits) / src._rawBits);
+	return (res);
 }
 
 Fixed	Fixed::operator++(int)
