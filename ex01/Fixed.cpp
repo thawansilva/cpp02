@@ -6,7 +6,7 @@
 /*   By: thaperei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/09 21:28:53 by thaperei          #+#    #+#             */
-/*   Updated: 2026/03/09 21:28:56 by thaperei         ###   ########.fr       */
+/*   Updated: 2026/03/14 15:50:43 by thaperei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ Fixed& Fixed::operator=(const Fixed& src)
 
 float	Fixed::toFloat(void) const
 {
-	return ((float)this->_rawBits / (float)(1 << _fractionalBits));
+	return (static_cast<float>(this->_rawBits) / (1 << _fractionalBits));
 }
 
 int	Fixed::toInt(void) const

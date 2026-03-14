@@ -6,7 +6,7 @@
 /*   By: thaperei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/09 21:29:08 by thaperei          #+#    #+#             */
-/*   Updated: 2026/03/09 21:29:08 by thaperei         ###   ########.fr       */
+/*   Updated: 2026/03/14 15:50:07 by thaperei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ public:
 	Fixed(void);
 	Fixed(int const num_i);
 	Fixed(float const num_f);
-	Fixed(Fixed& const src);
+	Fixed(const Fixed& src);
 	Fixed&	operator=(const Fixed& src);
 	~Fixed(void);
 	
